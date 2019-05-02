@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from twython import Twython
 import numpy as np
+import re
 from collections import Counter,OrderedDict
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
@@ -19,22 +20,28 @@ def hello_world():
     if post == None:
         post = "Zeytin Dalı"
     print(post)
-    results = twitter.search(q=post)['statuses']
-    print(results)
+
     wordnum = []
     allWord = []
     tweet4tfidf = []
+
+
+    query = post + ' AND -filter:retweets AND -filter:replies'
     try:
+        results = twitter.cursor(twitter.search, q=query, count=100)
         for result in results:
-            lowercase = result['text'].lower()
-            print(lowercase)
-            tweet4tfidf.append(lowercase)
-            tweetList = changeTweet(lowercase)
-            wordnum.append(len(tweetList))
-            allWord += tweetList
+                lowercase = result['text'].lower()
+                print(lowercase)
+                word = word2 = re.sub('http://\S+|https://\S+', '', lowercase)
+                tweet4tfidf.append(word)
+                tweetList = changeTweet(lowercase)
+                wordnum.append(len(tweetList))
+                allWord += tweetList
 
     except StopIteration as e:
         print(e)
+    except:
+        print("HATAAAAAA")
     tfidfAnalyse(tweet4tfidf)
     for x,y in mostCommon(allWord):
         print(x,"--",y)
@@ -79,7 +86,8 @@ def tfidfAnalyse(tweet):
     tfidf_transformer = TfidfTransformer()
     tfidf_matrix = tfidf_transformer.fit_transform(data)
     word2tfidf = dict(zip(cv.get_feature_names(), tfidf_transformer.idf_))
-    sorteddict = sorted(word2tfidf.items(), key=lambda kv: kv[1], reverse=True)[0:10]
+    sorteddict = sorted(word2tfidf.items(), key=lambda kv: kv[1], reverse=True)
+    print("SORT",sorteddict)
     return sorteddict
 
 
