@@ -1,0 +1,88 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="https://github.com/talayankara">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Coca-Cola_bottle_cap.svg/512px-Coca-Cola_bottle_cap.svg.png" width="40" height="40" class="d-inline-block align-top" alt="">
+    Ali Can Talay
+  </a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked admin-menu">
+                <li class="active"><a href="1" data-target-id="home"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="2" data-target-id="frequent"><i class="fa fa-list-alt fa-fw"></i>Most Frequent</a></li>
+                <li><a href="3" data-target-id="significant"><i class="fa fa-bar-chart-o fa-fw"></i>Most Significant</a></li>
+                <li><a href="4" data-target-id="average"><i class="fa fa-table fa-fw"></i>Average Word</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 well admin-content" id="home">
+            Welcome Home, please select the tweets to be analyzed
+            <form method="post">
+
+              <select name="selectData" class="form-control form-control-sm">
+                <option selected hidden>{{ post }}</option>
+                <option value="Zeytin dalı">Zeytin Dalı</option>
+                <option value="Kanal istanbul">Mega Şema</option>
+                <option value="Star Rafineri">Star Rafineri</option>
+                <option value="Ankara Tren Kazası">Ankara Tren Kazası</option>
+              </select>
+              <input class="btn btn-secondary btn-lg btn-block" type="submit" value="Send!" />
+            </form>
+
+        </div>
+        <div class="col-md-9 well admin-content" id="frequent">
+            {% for word, frequent in frequent %}
+                <ul class="list-group">
+                <li class="list-group-item d-flex align-items-center">
+                    {{ word }}
+                    <span class="badge badge-primary badge-pill">{{ frequent }}</span>
+                </ul>
+                {% endfor %}
+        </div>
+        <div class="col-md-9 well admin-content" id="significant">
+            {% for word, score in significant %}
+                <ul class="list-group">
+                <li class="list-group-item d-flex align-items-center">
+                    {{ word }}
+                    <span class="badge badge-primary badge-pill">{{ score }}</span>
+                </ul>
+                {% endfor %}
+        </div>
+    <div class="col-md-9 well admin-content" id="average">
+            In this topic every tweet has {{ average }} word
+
+        </div>
+    </div>
+</div>
+
+<style>
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);
+body{margin-top:20px;}
+.fa-fw {width: 2em;}
+</style>
+<script>
+    $(document).ready(function()
+{
+    var navItems = $('.admin-menu li > a');
+    var navListItems = $('.admin-menu li');
+    var allWells = $('.admin-content');
+    var allWellsExceptFirst = $('.admin-content:not(:first)');
+
+    allWellsExceptFirst.hide();
+    navItems.click(function(e)
+    {
+        e.preventDefault();
+        navListItems.removeClass('active');
+        $(this).closest('li').addClass('active');
+
+        allWells.hide();
+        var target = $(this).attr('data-target-id');
+        $('#' + target).show();
+    });
+});
+</script>
