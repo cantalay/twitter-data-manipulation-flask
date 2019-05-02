@@ -1,0 +1,6 @@
+runtime: python37
+# [START handlers]
+handlers:
+- url: /static
+  static_dir: static
+# [END handlers]

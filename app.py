@@ -7,11 +7,11 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 app = Flask(__name__)
 
-APP_KEY =
-ACCESS_TOKEN = 
-APP_SECRET = 
-OAUTH_TOKEN = 
-OAUTH_TOKEN_SECRET = 
+APP_KEY = "Xvgpb18d4pJNBwSJaJ0JhkUPn"
+ACCESS_TOKEN = "1370537623-Brb7RYIklcMKrRcNYbMq1alWZK8WtXy7uaDmLul"
+APP_SECRET = "7ihL6R70skJywPDWaFk8lsjIEY6NsYbIZIgkhD6ogdyBFkvjix"
+OAUTH_TOKEN = "1370537623-Brb7RYIklcMKrRcNYbMq1alWZK8WtXy7uaDmLul"
+OAUTH_TOKEN_SECRET = "D4kfNfIcD36vkqa9mp0sy75K61AcOmcXZvdJPh09OFzKZ"
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 @app.route('/',  methods=['GET', 'POST'])
@@ -28,7 +28,7 @@ def hello_world():
 
     query = post + ' AND -filter:retweets AND -filter:replies'
     try:
-        results = twitter.cursor(twitter.search, q=query, count=100)
+        results = twitter.cursor(twitter.search, q=query)
         for result in results:
                 lowercase = result['text'].lower()
                 print(lowercase)
@@ -41,7 +41,7 @@ def hello_world():
     except StopIteration as e:
         print(e)
     except:
-        print("HATAAAAAA")
+        print("Other Itteration Error")
     tfidfAnalyse(tweet4tfidf)
     for x,y in mostCommon(allWord):
         print(x,"--",y)
@@ -86,7 +86,7 @@ def tfidfAnalyse(tweet):
     tfidf_transformer = TfidfTransformer()
     tfidf_matrix = tfidf_transformer.fit_transform(data)
     word2tfidf = dict(zip(cv.get_feature_names(), tfidf_transformer.idf_))
-    sorteddict = sorted(word2tfidf.items(), key=lambda kv: kv[1], reverse=True)
+    sorteddict = sorted(word2tfidf.items(), key=lambda kv: kv[1], reverse=True)[5:15]
     print("SORT",sorteddict)
     return sorteddict
 
