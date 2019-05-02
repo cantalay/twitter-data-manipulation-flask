@@ -7,11 +7,11 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 app = Flask(__name__)
 
-APP_KEY = "Xvgpb18d4pJNBwSJaJ0JhkUPn"
-ACCESS_TOKEN = "1370537623-Brb7RYIklcMKrRcNYbMq1alWZK8WtXy7uaDmLul"
-APP_SECRET = "7ihL6R70skJywPDWaFk8lsjIEY6NsYbIZIgkhD6ogdyBFkvjix"
-OAUTH_TOKEN = "1370537623-Brb7RYIklcMKrRcNYbMq1alWZK8WtXy7uaDmLul"
-OAUTH_TOKEN_SECRET = "D4kfNfIcD36vkqa9mp0sy75K61AcOmcXZvdJPh09OFzKZ"
+APP_KEY =
+ACCESS_TOKEN = 
+APP_SECRET = 
+OAUTH_TOKEN = 
+OAUTH_TOKEN_SECRET = 
 twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
 @app.route('/',  methods=['GET', 'POST'])
