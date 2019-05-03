@@ -21,17 +21,22 @@
             </ul>
         </div>
         <div class="col-md-9 well admin-content" id="home">
-            Welcome Home, please select the tweets to be analyzed
+        <span class="badge badge-primary badge-pill -center">Welcome Home, please select the tweets to be analyzed.</span>
+        <br>
             <form method="post">
 
               <select name="selectData" class="form-control form-control-sm">
                 <option selected hidden>{{ post }}</option>
-                <option value="Zeytin Dalı">Zeytin Dalı</option>
-                <option value="kanal istanbul OR Kanal İstanbul">Mega Şema</option>
-                <option value="star rafineri">Star Rafineri</option>
-                <option value="tren kazası OR ankara tren">Ankara Tren Kazası</option>
+                <option value="Zeytin Dalı">Operation Olive Branch</option>
+                <option value="Kanal istanbul">"Mega-scheme"</option>
+                <option value="Star rafineri">Star Refinery</option>
+                <option value="Tren kazası OR Ankara tren">Ankara train collision</option>
               </select>
-              <input class="btn btn-secondary btn-lg btn-block" type="submit" value="Send!" />
+                <br>
+              <input class="btn btn-secondary btn-lg btn-block" type="submit" value="Go!" />
+                <br>
+
+                <p class="text-center">Select an Item and use side menu for deltails.</p>
             </form>
 
         </div>
@@ -54,8 +59,10 @@
                 {% endfor %}
         </div>
     <div class="col-md-9 well admin-content" id="average">
-            In this topic every tweet has {{ average }} word
-         Total analyzed tweets number are {{ countedTweet }}
+        <span class="badge badge-primary">In this topic every tweet has {{ average }} word</span>
+        <br>
+        <span class="badge badge-success">Total analyzed tweets number are {{ countedTweet }}</span>
+
 
         </div>
     </div>

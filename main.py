@@ -30,7 +30,6 @@ def twitterApi():
     try:
         results = twitter.cursor(twitter.search, q=query)
         for result in results:
-            x+=1
             lowercase = result['text'].lower()
             word = re.sub('http://\S+|https://\S+', '', lowercase)
             removedigit = str.maketrans('', '', digits)
@@ -44,8 +43,6 @@ def twitterApi():
         print(e)
     except:
         print("Other Itteration Error")
-
-    print("TFIDF TWEET",tweet4tfidf)
     if not tweet4tfidf == []:
         tfidfAnalyse(tweet4tfidf)
     frequent = mostCommon(allWord)
@@ -55,7 +52,7 @@ def twitterApi():
         frequent=frequent,
         average=np.mean(wordnum),
         significant=tfidfAnalyse(tweet4tfidf),
-        countedTweet = x,
+        countedTweet = len(tweet4tfidf),
         post=post)
 
 
